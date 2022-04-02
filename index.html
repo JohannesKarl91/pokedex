@@ -38,64 +38,62 @@
     <div class="allPokemon" id="allPokemon"></div>
 
 
-    <div class="pokedexBackground d-none">
-        <div class="pokedexContainer d-none">
-            <div id="pokemonHeader" class="pokemonHeader">
-                <div class="orientationBar">
-                    <img class="orientationBarImg" src="img/arrow_back_white_24dp.svg">
-                    <img class="orientationBarImg" src="img/favorite_border_white_24dp.svg">
-                </div>
-                <div id="pokemonName" class="pokemonName">Name</div>
+    <div id="pokedexContainer" class="pokedexContainer d-none">
+        <div id="pokemonHeader" class="pokemonHeader">
+            <div class="orientationBar">
+                <img onclick="hidePokemonCard()" class="orientationBarImg" src="img/arrow_back_white_24dp.svg">
+                <img class="orientationBarImg" src="img/favorite_border_white_24dp.svg">
             </div>
-
-            <div id="infoContainer" class="infoContainer">
-                <img id="pokemonImg" class="pokemonImg" src="">
-                <div id="pokemonStatistics" class="pokemonStatistics">
-
-                    <div class="containerStats">
-                        <div id="stat0"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 39%; background-color: red;" id="statValue0"></div>
-                        </div>
-                    </div>
-                    <div class="containerStats">
-                        <div id="stat1"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 52%; background-color: green;" id="statValue1">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="containerStats">
-                        <div id="stat2"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 39%; background-color: red;" id="statValue2"></div>
-                        </div>
-                    </div>
-                    <div class="containerStats">
-                        <div id="stat3"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 60%; background-color: green;" id="statValue3">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="containerStats">
-                        <div id="stat4"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 50%; background-color: green;" id="statValue4">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="containerStats">
-                        <div id="stat5"></div>
-                        <div class="statValue">
-                            <div class="stateValueBar" style="width: 65%; background-color: green;" id="statValue5">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <div id="pokemonName" class="pokemonName">Name</div>
         </div>
+
+        <div id="infoContainer" class="infoContainer">
+            <img id="pokemonImg" class="pokemonImg" src="">
+            <div id="pokemonStatistics" class="pokemonStatistics">
+
+                <div class="containerStats">
+                    <div id="stat0"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 39%; background-color: red;" id="statValue0"></div>
+                    </div>
+                </div>
+                <div class="containerStats">
+                    <div id="stat1"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 52%; background-color: green;" id="statValue1">
+                        </div>
+                    </div>
+                </div>
+                <div class="containerStats">
+                    <div id="stat2"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 39%; background-color: red;" id="statValue2"></div>
+                    </div>
+                </div>
+                <div class="containerStats">
+                    <div id="stat3"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 60%; background-color: green;" id="statValue3">
+                        </div>
+                    </div>
+                </div>
+                <div class="containerStats">
+                    <div id="stat4"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 50%; background-color: green;" id="statValue4">
+                        </div>
+                    </div>
+                </div>
+                <div class="containerStats">
+                    <div id="stat5"></div>
+                    <div class="statValue">
+                        <div class="stateValueBar" style="width: 65%; background-color: green;" id="statValue5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 
