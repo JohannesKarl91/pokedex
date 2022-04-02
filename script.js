@@ -65,12 +65,13 @@ function showPokemonCard(i) {
 function hidePokemonCard() {
     document.getElementById('pokedexContainer').classList.add('d-none');
     document.getElementById('allPokemon').classList.remove('d-opacity');
+    document.getElementById('favorite').src = './img/favorite_border_white_24dp.svg';
+    cleanPokemonCardBackground();
 }
 
 
 function renderPokemonCard(i) {
     let pokemon = pokemonArray[i];
-    let pokemonCard = document.getElementById('pokedexContainer');
 
     document.getElementById('pokemonName').innerHTML = pokemon['name'];
     document.getElementById('pokemonHeader').classList.add(`bg-pc-${pokemon['types'][0]['type']['name']}`);
@@ -83,42 +84,74 @@ function renderPokemonCardStats(i) {
     let pokemon = pokemonArray[i];
     document.getElementById('stat0').innerHTML = pokemon['stats'][0]['stat']['name'];
     document.getElementById('statValue0').innerHTML = pokemon['stats'][0]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][0]['base_stat'], 'statValue0');
     document.getElementById('stat1').innerHTML = pokemon['stats'][1]['stat']['name'];
     document.getElementById('statValue1').innerHTML = pokemon['stats'][1]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][1]['base_stat'], 'statValue1');
     document.getElementById('stat2').innerHTML = pokemon['stats'][2]['stat']['name'];
     document.getElementById('statValue2').innerHTML = pokemon['stats'][2]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][2]['base_stat'], 'statValue2');
     document.getElementById('stat3').innerHTML = pokemon['stats'][3]['stat']['name'];
     document.getElementById('statValue3').innerHTML = pokemon['stats'][3]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][3]['base_stat'], 'statValue3');
     document.getElementById('stat4').innerHTML = pokemon['stats'][4]['stat']['name'];
     document.getElementById('statValue4').innerHTML = pokemon['stats'][4]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][4]['base_stat'], 'statValue4');
     document.getElementById('stat5').innerHTML = pokemon['stats'][5]['stat']['name'];
     document.getElementById('statValue5').innerHTML = pokemon['stats'][5]['base_stat'];
+    checkPokemonCardBackgroundColor(pokemon['stats'][5]['base_stat'], 'statValue5');
 }
 
 
-//Testing and example from developer akademie
-async function loadPokemon() {
-    let url = 'https://pokeapi.co/api/v2/pokemon/charmander';
-    let response = await fetch(url);
-    currentPokemon = await response.json();
-
-    console.log('Loaded Pokemon', currentPokemon);
-    // console.log(currentPokemon['sprites'] ['front_shiny'])
-    renderPokemonInfo();
+function checkPokemonCardBackgroundColor(number, id) {
+    let value = number;
+    let adress = id;
+    if (value >= 50) {
+        document.getElementById(adress).style = `width: ${number}%; background-color:green;`;
+    }
+    else {
+        document.getElementById(adress).style = `width: ${number}%; background-color:red;`;
+    }
 }
 
 
-// function renderPokemonInfo() {
-//     document.getElementById('stat0').innerHTML = currentPokemon['stats'][0]['stat']['name'];
-//     document.getElementById('statValue0').innerHTML = currentPokemon['stats'][0]['base_stat'];
-//     document.getElementById('stat1').innerHTML = currentPokemon['stats'][1]['stat']['name'];
-//     document.getElementById('statValue1').innerHTML = currentPokemon['stats'][1]['base_stat'];
-//     document.getElementById('stat2').innerHTML = currentPokemon['stats'][2]['stat']['name'];
-//     document.getElementById('statValue2').innerHTML = currentPokemon['stats'][2]['base_stat'];
-//     document.getElementById('stat3').innerHTML = currentPokemon['stats'][3]['stat']['name'];
-//     document.getElementById('statValue3').innerHTML = currentPokemon['stats'][3]['base_stat'];
-//     document.getElementById('stat4').innerHTML = currentPokemon['stats'][4]['stat']['name'];
-//     document.getElementById('statValue4').innerHTML = currentPokemon['stats'][4]['base_stat'];
-//     document.getElementById('stat5').innerHTML = currentPokemon['stats'][5]['stat']['name'];
-//     document.getElementById('statValue5').innerHTML = currentPokemon['stats'][5]['base_stat'];
-// }
+function cleanPokemonCardBackground() {
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-grass');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-fire');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-water');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-bug');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-normal');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-poison');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-electric');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-ground');
+    document.getElementById('pokemonHeader').classList.remove('bg-pc-fairy');
+}
+
+
+function favoritePokemon() {
+
+    if (document.getElementById('favorite').src = './img/favorite_border_white_24dp.svg') {
+        document.getElementById('favorite').src = './img/favorite_white_24dp.svg';
+        renderPokemonCard();
+    }
+}
+
+function searchPokemon() {
+    let search = document.getElementById('pokemonSearch').value;
+    search = search.toLowerCase();
+    document.getElementById('allPokemon').innerHTML = '';
+    for (let i = 0; i < pokemonArray.length; i++) {
+        if (pokemonArray[i]['name'].toLowerCase().includes(search)) {
+            document.getElementById('allPokemon').innerHTML += /*html */`
+            <div onclick="showPokemonCard(${i})" class="pokemonCard bg-${pokemonArray[i]['types'][0]['type']['name']}">
+            <div class="pokemonCardTitle">
+            <div class="pokemonCardName">${pokemonArray[i]['name']}</div>
+            <div class="pokemonCardElements">
+                <div class="pokemonCardAttributes" id="pokemonCardAttributes(${i})"></div>
+                <img class="pokeCardImg" src="${pokemonArray[i]['sprites']['other']['dream_world']['front_default']}">
+            <div>
+        </div>
+        `;
+        }
+    }
+}
