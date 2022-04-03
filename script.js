@@ -1,9 +1,6 @@
 let url = 'https://pokeapi.co/api/v2/pokemon/';
 let pokemonArray = [];
 
-let currentPokemon;
-let CHECK_POKEMON;
-
 
 async function loadAPIPokemon() {
     for (let i = 0; i < 50; i++) {
@@ -12,7 +9,6 @@ async function loadAPIPokemon() {
         let responseAsJSON = await response.json();
         pokemonArray.push(responseAsJSON);
     }
-    console.log('Loaded Pokemon', pokemonArray);
     renderAllPokemon()
 }
 
@@ -26,18 +22,23 @@ function renderAllPokemon() {
 
 function renderPokemonCards() {
     for (let i = 0; i < pokemonArray.length; i++) {
-        const pokemon = pokemonArray[i];
-        document.getElementById('allPokemon').innerHTML +=/*html*/ `
-        <div onclick="showPokemonCard(${i})" class="pokemonCard bg-${pokemon['types'][0]['type']['name']}">
-            <div class="pokemonCardTitle">
-            <div class="pokemonCardName">${pokemon['name']}</div>
-            <div class="pokemonCardElements">
-                <div class="pokemonCardAttributes" id="pokemonCardAttributes(${i})"></div>
-                <img class="pokeCardImg" src="${pokemon['sprites']['other']['dream_world']['front_default']}">
-            <div>
-        </div>
-        `;
+        templatePokemonCard(i);
     }
+}
+
+
+function templatePokemonCard(i){
+    let pokemon = pokemonArray[i];
+    document.getElementById('allPokemon').innerHTML +=/*html*/ `
+    <div onclick="showPokemonCard(${i})" class="pokemonCard bg-${pokemon['types'][0]['type']['name']}">
+        <div class="pokemonCardTitle">
+        <div class="pokemonCardName">${pokemon['name']}</div>
+        <div class="pokemonCardElements">
+            <div class="pokemonCardAttributes" id="pokemonCardAttributes(${i})"></div>
+            <img class="pokeCardImg" src="${pokemon['sprites']['other']['dream_world']['front_default']}">
+        <div>
+    </div>
+    `;
 }
 
 
@@ -45,7 +46,6 @@ function renderPokemonAttributes() {
     for (let i = 0; i < pokemonArray.length; i++) {
         const pokemon = pokemonArray[i];
         let pokemonAttribute = document.getElementById(`pokemonCardAttributes(${i})`);
-        console.log('All Pokemon', pokemon);
 
         for (let j = 0; j < pokemon['types'].length; j++) {
             const attribute = pokemon['types'][j]['type']['name'];
@@ -65,7 +65,6 @@ function showPokemonCard(i) {
 function hidePokemonCard() {
     document.getElementById('pokedexContainer').classList.add('d-none');
     document.getElementById('allPokemon').classList.remove('d-opacity');
-    document.getElementById('favorite').src = './img/favorite_border_white_24dp.svg';
     cleanPokemonCardBackground();
 }
 
@@ -81,22 +80,57 @@ function renderPokemonCard(i) {
 
 
 function renderPokemonCardStats(i) {
+    renderStat0(i);
+    renderStat1(i);
+    renderStat2(i);
+    renderStat3(i);
+    renderStat4(i);
+    renderStat5(i);
+}
+
+
+function renderStat0(i){
     let pokemon = pokemonArray[i];
     document.getElementById('stat0').innerHTML = pokemon['stats'][0]['stat']['name'];
     document.getElementById('statValue0').innerHTML = pokemon['stats'][0]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][0]['base_stat'], 'statValue0');
+}
+
+
+function renderStat1(i){
+    let pokemon = pokemonArray[i];
     document.getElementById('stat1').innerHTML = pokemon['stats'][1]['stat']['name'];
     document.getElementById('statValue1').innerHTML = pokemon['stats'][1]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][1]['base_stat'], 'statValue1');
+}
+    
+
+function renderStat2(i){
+    let pokemon = pokemonArray[i];
     document.getElementById('stat2').innerHTML = pokemon['stats'][2]['stat']['name'];
     document.getElementById('statValue2').innerHTML = pokemon['stats'][2]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][2]['base_stat'], 'statValue2');
+}
+
+
+function renderStat3(i){
+    let pokemon = pokemonArray[i];
     document.getElementById('stat3').innerHTML = pokemon['stats'][3]['stat']['name'];
     document.getElementById('statValue3').innerHTML = pokemon['stats'][3]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][3]['base_stat'], 'statValue3');
+}
+
+
+function renderStat4(i){
+    let pokemon = pokemonArray[i];
     document.getElementById('stat4').innerHTML = pokemon['stats'][4]['stat']['name'];
     document.getElementById('statValue4').innerHTML = pokemon['stats'][4]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][4]['base_stat'], 'statValue4');
+}
+
+
+function renderStat5(i){
+    let pokemon = pokemonArray[i];
     document.getElementById('stat5').innerHTML = pokemon['stats'][5]['stat']['name'];
     document.getElementById('statValue5').innerHTML = pokemon['stats'][5]['base_stat'];
     checkPokemonCardBackgroundColor(pokemon['stats'][5]['base_stat'], 'statValue5');
@@ -129,20 +163,28 @@ function cleanPokemonCardBackground() {
 
 
 function favoritePokemon() {
-
     if (document.getElementById('favorite').src = './img/favorite_border_white_24dp.svg') {
         document.getElementById('favorite').src = './img/favorite_white_24dp.svg';
         renderPokemonCard();
     }
 }
 
+
 function searchPokemon() {
     let search = document.getElementById('pokemonSearch').value;
     search = search.toLowerCase();
     document.getElementById('allPokemon').innerHTML = '';
+    
     for (let i = 0; i < pokemonArray.length; i++) {
         if (pokemonArray[i]['name'].toLowerCase().includes(search)) {
-            document.getElementById('allPokemon').innerHTML += /*html */`
+            templateSearchPokemon(i);   
+        }
+    }
+}
+
+
+function templateSearchPokemon(i){
+    document.getElementById('allPokemon').innerHTML += /*html */`
             <div onclick="showPokemonCard(${i})" class="pokemonCard bg-${pokemonArray[i]['types'][0]['type']['name']}">
             <div class="pokemonCardTitle">
             <div class="pokemonCardName">${pokemonArray[i]['name']}</div>
@@ -152,6 +194,4 @@ function searchPokemon() {
             <div>
         </div>
         `;
-        }
-    }
 }
